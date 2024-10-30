@@ -23,6 +23,10 @@ public interface UserProvider {
      */
     Optional<User> getUserByEmail(String email);
 
+    List<User> findAllByEmail(String email);
+
+    List<User> findOlder(long age);
+
     /**
      * Retrieves all users.
      *

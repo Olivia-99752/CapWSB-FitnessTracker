@@ -37,8 +37,37 @@ class UserServiceImpl implements UserService, UserProvider {
     }
 
     @Override
+    public List<User> findAllByEmail(final String email) { return userRepository.findAllByEmail(email); }
+
+    @Override
+    public List<User> findOlder(long age) { return userRepository.findOlder(age); }
+
+    @Override
     public List<User> findAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public User updateUser(final Long userId, final User updatedUser) {
+
+        final Optional<User> user = getUser(userId);
+        log.info("Updating User {}", user);
+        if(user.isPresent()) {
+              deleteUser(userId);
+              createUser(updatedUser);
+              return updatedUser;
+        }
+        else{
+            throw new IllegalArgumentException("User does not exist");
+        }
+    }
+
+    @Override
+    public Optional<User> deleteUser(final Long userId) {
+        log.info("Deleting User {}", userId);
+        final Optional<User> user = getUser(userId);
+        user.ifPresent(userRepository::delete);
+        return user;
     }
 
 }
