@@ -21,13 +21,7 @@ class UserController {
 
     private final UserMapper userMapper;
 
-//    @GetMapping
-//    public List<UserDto> getAllUsers() {
-//        return userService.findAllUsers()
-//                          .stream()
-//                          .map(userMapper::toDto)
-//                          .toList();
-//    }
+
     @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.findAllUsers()
